@@ -1,3 +1,37 @@
+CREATE TABLE categorias (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
+
+CREATE TABLE formas_pagamento (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE lancamentos (
+    id SERIAL PRIMARY KEY,
+    descricao VARCHAR(255) NOT NULL,
+    valor NUMERIC(10,2) NOT NULL,
+    data_lancamento DATE NOT NULL,
+    categoria_id INT NOT NULL,
+    forma_pagamento_id INT NOT NULL,
+    
+    CONSTRAINT fk_categoria
+        FOREIGN KEY (categoria_id)
+        REFERENCES categorias(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_forma_pagamento
+        FOREIGN KEY (forma_pagamento_id)
+        REFERENCES formas_pagamento(id)
+        ON DELETE CASCADE
+);
+
+
+
+
+
 ('Transporte'),
 ('Energia Elétrica'),
 ('Água'),
